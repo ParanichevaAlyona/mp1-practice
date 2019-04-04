@@ -75,7 +75,7 @@ double Com(Vector *v, Vector *vv)
 	printf("\n");
 }
 
-int Length(Vector *v, Vector *vv)
+double Length(Vector *v, Vector *vv)
 {
 	int k, i;
 	double sum = 0.0, len;
