@@ -1,6 +1,5 @@
-#pragma once
-#include <iostream>
-using namespace std;
+#ifndef HEAD_H
+#define HEAD_H
 
 	class Vector
 {
@@ -33,3 +32,4 @@ public:
 	void operator delete(void *v);
 	bool operator==(const Vector& z);
 };
+#endif
