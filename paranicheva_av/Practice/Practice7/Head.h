@@ -1,7 +1,7 @@
 #ifndef HEAD_H
 #define HEAD_H
 
-	class Vector
+class Vector
 {
 private:
 	int n;
