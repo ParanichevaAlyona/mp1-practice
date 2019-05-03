@@ -37,7 +37,7 @@ void Todolist::Read()
 		throw "File not found";
 
 	string c;
-	getline(file, c);// считывание кол-ва задач всего
+	getline(file, c);// schityvanie kol-va zadach
 	count = atoi(c.c_str());
 
 	tasks = new Task*[count]; 
