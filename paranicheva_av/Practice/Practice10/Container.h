@@ -1,6 +1,5 @@
 #ifndef CONTAINER_H
 #define CONTAINER_H
-#define MAX 20
 
 template <typename T, int maxsize> 
 class Container
@@ -22,7 +21,9 @@ public:
 	int Find(T n) const;
 	void Add(T n);
 	void Delete(T n);
-	T* operator[](int i) const;
+	T operator[](int i);
+	const T operator[](int i) const;
+	void Resize(int n);
 };
 
 template <typename T, int maxsize>
@@ -59,7 +60,7 @@ Container <T, maxsize>::~Container <T,maxsize>()
 template <typename T, int maxsize>
 bool Container <T, maxsize>::IsFull() const
 {
-	if (size == MAX)
+	if (size == maxsize)
 		return true;
 	return false;
 }
@@ -86,8 +87,6 @@ void Container <T, maxsize>::Fill()
 template <typename T, int maxsize>
 void Container <T, maxsize>::Print()
 {
-	if(IsEmpty()) 
-		throw "Array is empty";
 	for (int i = 0; i < size; i++)
 		cout << arr[i] << " ";
 	cout << endl;
@@ -97,9 +96,7 @@ template <typename T, int maxsize>
 int Container <T, maxsize>::Find(T n) const
 {
 	for (int i = 0; i < size; i++)
-	{
 		if (arr[i] == n) return i;
-	}
 	throw "Item not found";
 }
 
@@ -107,7 +104,7 @@ template <typename T, int maxsize>
 void Container <T, maxsize>::Add(T n)
 {
 	if (IsFull())
-		throw "The array is full, you cannot add a new item";
+		this->Resize(1);
 	arr[size] = n;
 	size++;
 }
@@ -121,16 +118,39 @@ void Container <T, maxsize>::Delete(T n)
 	i = Find(n);
 	arr[i] = arr[size - 1];
 	arr[size - 1] = 0;
+	size--;
 }
 
 template <typename T, int maxsize>
-T* Container <T, maxsize>::operator[](int i) const
+T Container <T, maxsize>::operator[](int i)
 {
 	if(IsEmpty())
 		throw "The array is empty, you can not delete item";
 	if((i < 0) || (i >= size))
 		throw "Wrong index";
-	return &arr[i];
+	return arr[i];
+}
+
+template <typename T, int maxsize>
+const T Container <T, maxsize>::operator[](int i) const
+{
+	if(IsEmpty())
+		throw "The array is empty, you can not delete item";
+	if((i < 0) || (i >= size))
+		throw "Wrong index";
+	return arr[i];
+}
+
+template <typename T, int maxsize>
+void Container <T, maxsize>::Resize(int n = 1)
+{
+	T *tmp = new T[size];
+	for (int i = 0; i < size; i++)
+		tmp[i] = arr[i];
+	delete []arr;
+	arr = new T[size + n];
+	for (int i = 0; i < size; i++)
+		arr[i] = tmp[i];
 }
 
 #endif
