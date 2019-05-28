@@ -116,8 +116,8 @@ void Angle(Vector *v, Vector *vv)
 
  void Delete (Vector *v, Vector *vv)
 {
-	free((*v).a); 
-    (*v).n = 0; 
-	free((*vv).a); 
-	(*vv).n = 0; 
+	free(v->a);
+	v->n = 0; 
+	free(vv->a); 
+	vv->n = 0; 
 }
