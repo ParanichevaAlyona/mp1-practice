@@ -49,7 +49,8 @@ void main ()
 				Delete(v, vv);
 				break;
 		}
-	}while (vybor != 7);
+	}
+	while (vybor != 7);
 
 	free(v);
 	free(vv);
