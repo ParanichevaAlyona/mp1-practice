@@ -1,18 +1,17 @@
-#ifndef CONTAINER2_H
-#define CONTAINER2_H
-#define MAX 20
+#ifndef CONTAINERA_H
+#define CONTAINERA_H
 
 template <typename T, int maxsize> 
-class ContainerA
+class Container<T*, maxsize>
 {
 private:
 	T** m;
 	int s; 
 public:
-	ContainerA();
-	ContainerA(int _s);
-	ContainerA(const ContainerA& c);
-	~ContainerA();
+	Container();
+	Container(int _s);
+	Container(const Container& c);
+	~Container();
 
 	bool IsFull() const;
 	bool IsEmpty() const;
@@ -22,41 +21,43 @@ public:
 	int Find(T n) const;
 	void Add(T n);
 	void Delete(T n);
-	T* operator[](int i) const;
+	T& operator[](int i);
+	const T& operator[](int i) const;
+	void Resize(int n);
 };
 
 template <typename T, int maxsize>
-ContainerA <T, maxsize>::ContainerA <T,maxsize>()
+Container <T*, maxsize>::Container()
 {
 	s = 0;
 	m = new T*[MAX];
 }
 
 template <typename T, int maxsize>
-ContainerA <T, maxsize>::ContainerA <T,maxsize>(int _s)
+Container <T*, maxsize>::Container(int _s)
 {
 	s = _s;
-	m = new T*[MAX];
+	m = new T*[maxsize];
 	for(int i = 0; i < s; i++)
 	{
-	m = new T;
+	m[i] = new T;
 	}
 }
 
 template <typename T, int maxsize>
-ContainerA <T, maxsize>::ContainerA < T, maxsize> (const ContainerA &c)
+Container <T*, maxsize>::Container(const Container &c)
 {
 	s = c.s;
 	m = new T*[MAX];
 	for (int i = 0; i < s; i++)
 	{
 		m = new T;
-		*(m[i]) = c.*m[i];
+		m[i] = c->m[i];
 	}
 }
 
 template <typename T, int maxsize>
-ContainerA <T, maxsize>::~ContainerA <T,maxsize>()
+Container <T*, maxsize>::~Container()
 {
 	for (int i = 0; i < s; i++)
 		delete []m[i];
@@ -65,15 +66,15 @@ ContainerA <T, maxsize>::~ContainerA <T,maxsize>()
 }
 
 template <typename T, int maxsize>
-bool ContainerA <T, maxsize>::IsFull() const
+bool Container <T*, maxsize>::IsFull() const
 {
-	if (s == MAX)
+	if (s == maxsize)
 		return true;
 	return false;
 }
 
 template <typename T, int maxsize>
-bool ContainerA <T, maxsize>::IsEmpty() const
+bool Container <T*, maxsize>::IsEmpty() const
 {
 	if (s == 0)
 		return true;
@@ -81,7 +82,7 @@ bool ContainerA <T, maxsize>::IsEmpty() const
 }
 
 template <typename T, int maxsize>
-void ContainerA <T, maxsize>::Fill()
+void Container <T*, maxsize>::Fill()
 {
 	cout << "Enter array elements" << endl;
 	if(IsEmpty()) 
@@ -93,56 +94,75 @@ void ContainerA <T, maxsize>::Fill()
 }
 
 template <typename T, int maxsize>
-void ContainerA <T, maxsize>::Print() 
+void Container <T*, maxsize>::Print() 
 {
-	cout << "Enter array elements" << endl;
-	if(IsEmpty()) 
-		throw "Array is empty";
 	for (int i = 0; i < s; i++)
-    {
         cout << *m[i] << " ";
-    }
     cout << endl;
 }
 
 template <typename T, int maxsize>
-int ContainerA <T, maxsize>::Find(T n) const
+int Container <T*, maxsize>::Find(T n) const
 {
-	for (int i = 0; i < n; i++)
-        if (*m[i] == a)
+	for (int i = 0; i < s; i++)
+        if (*m[i] == n)
             return i;
     throw "Item not found";
 }
 
 template <typename T, int maxsize>
-void ContainerA <T, maxsize>::Add(T n)
+void Container <T*, maxsize>::Add(T n)
 {
 	if (IsFull())
-		throw "The array is full, you cannot add a new item";
+		this->Resize(1);
 	m[s] = new T;
 	*m[s] = n;
 	s++;
 }
 
 template <typename T, int maxsize>
-void ContainerA <T, maxsize>::Delete(T n)
+void Container <T*, maxsize>::Delete(T n)
 {
 	if(IsEmpty())
 		throw "The array is empty, you can not delete item";
 	int i;
 	i = Find(n);
 	*m[i] = *m[s - 1];
-	delete *m[s - 1];
+	delete m[s - 1];
+	s--;
 }
 
 template <typename T, int maxsize>
-T* ContainerA <T, maxsize>::operator[](int i) const
+T& Container <T*, maxsize>::operator[](int i)
 {
 	if(IsEmpty())
 		throw "The array is empty, you can not delete item";
 	if((i < 0) || (i >= s))
 		throw "Wrong index";
-	return m[s];
+	return *m[s];
+}
+
+template <typename T, int maxsize>
+const T& Container <T*, maxsize>::operator[](int i) const
+{
+	if(IsEmpty())
+		throw "The array is empty, you can not delete item";
+	if((i < 0) || (i >= s))
+		throw "Wrong index";
+	return *m[s];
+}
+
+template <typename T, int maxsize>
+void Container <T*, maxsize>::Resize(int n = 1)
+{
+	T **tmp = new T*[s];
+	for (int i = 0; i < s; i++)
+		tmp[i] = m[i];
+	delete m;
+	m = new T*[s + n];
+	for (int i = 0; i < s; i++)
+		m[i] = tmp[i];
+	delete []tmp;
 }
 
 #endif
