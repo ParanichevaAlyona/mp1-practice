@@ -1,16 +1,16 @@
 #include <iostream>
 #include "Container.h"
-#include "Container2.h"
-#define MAX 20
+#include "ContainerA.h"
 using namespace std;
 
 void main()
 {
 	int _size;
+	const int _maxsize  = 20;
 	cout << "Enter array size" << endl;
 	cin >> _size;
 	int n;
-	Container<int, MAX> A(_size);
+	Container<int, _maxsize> A(_size);
 
 	try
 	{
@@ -26,8 +26,7 @@ void main()
 	{
 		cout << "Enter the item you want to find" << endl;
 		cin >> n;
-		A.Find(n);
-		cout << n << endl;
+		cout << A.Find(n) << endl;
 	}
 	catch(const char* s)
 	{
@@ -63,17 +62,17 @@ void main()
 		int i;
 		cout << "Enter index" << endl;
 		cin >> i;
-		cout << *A[i] << endl;
+		cout << A[i] << endl;
 	}
 	catch(const char* s)
 	{
 		cout << s << endl;
 	}
-	////////////
-	double _s;
+	
+	int _s;
 	_s = _size;
 	int nn;
-	Container<double, MAX> B(_s);
+	Container<int*, _maxsize> B(_s);
 
 	try
 	{
@@ -89,8 +88,7 @@ void main()
 	{
 		cout << "Enter the item you want to find" << endl;
 		cin >> nn;
-		B.Find(nn);
-		cout << nn << endl;
+		cout << B.Find(nn) << endl;
 	}
 	catch(const char* s)
 	{
@@ -126,7 +124,7 @@ void main()
 		int i;
 		cout << "Enter index" << endl;
 		cin >> i;
-		cout << *B[i] << endl;
+		cout << B[i] << endl;
 	}
 	catch(const char* s)
 	{
