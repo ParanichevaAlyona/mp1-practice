@@ -90,9 +90,7 @@ Vector Vector::operator* (double a) const
 Vector& Vector::operator= (const Vector& z) 
 {
 	if (*this == z)
-	{
 		return*this; 
-	}
 	delete[] x;
 	n = z.n;
 	x = new double[z.n];
@@ -160,12 +158,12 @@ void Vector::operator delete(void *x)
 }
 bool Vector::operator==(const Vector& z)
 {
-	if (n != z.n) return false;
+	if (n != z.n) 
+		return false;
 	int f = 0;
 	for (int i = 0; i < n; i++)
-	{
 		if (x[i] != z.x[i]) f = 1;
-	}
-	if (f == 1) return false;
+	if (f == 1) 
+		return false;
 	return true;
 }
