@@ -117,12 +117,12 @@ void main()
 				break;
 			case 8:
 				try
-					{
+				{
 					cout << "Insert the number " << endl;
 					cin >> num;
 					a -= num;
 					a.Out();
-					}
+				}
 				catch(const char* s)
 				{
 					cout << s << endl;
