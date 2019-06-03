@@ -11,10 +11,10 @@ void main()
 	cin >> nn2;
 	Vector a(nn1), b(nn2), c;
 
-	a.Fill();
-	a.Out();
-	b.Fill();
-	b.Out();
+	cin >> a;
+	cout << a;
+	cin >> b;
+	cout << b;
 	int k, i;
 	do
 	{
@@ -28,7 +28,7 @@ void main()
 				try
 				{
 					c = a + b;
-					c.Out();
+					cout << c;
 				}
 				catch(const char* s)
 				{
@@ -39,7 +39,7 @@ void main()
 				try
 				{
 					c = a - b;
-					c.Out();
+					cout << c;
 				}
 				catch(const char* s)
 				{
@@ -62,7 +62,7 @@ void main()
 				try
 				{
 					c = a;
-					c.Out();
+					cout << c;
 				}
 				catch(const char* s)
 				{
@@ -108,7 +108,7 @@ void main()
 					cout << "Insert the number " << endl;
 					cin >> num;
 					a += num;
-					a.Out();
+					cout << a;
 				}
 				catch(const char* s)
 				{
@@ -134,7 +134,7 @@ void main()
 					cout << "Insert the number " << endl;
 					cin >> num;
 					a *= num;
-					a.Out();
+					cout << a;
 				}
 				catch(const char* s)
 				{
