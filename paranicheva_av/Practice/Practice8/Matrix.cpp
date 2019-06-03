@@ -2,12 +2,6 @@
 #include "Head.h"
 using namespace std;
 
-Matrix::Matrix()
-{
-	rows = 0;
-	cols = 0;
-	m = NULL;
-}
 Matrix::Matrix(int _rows, int _cols)
 {
 	rows = _rows;
@@ -27,7 +21,7 @@ Matrix::Matrix(const Matrix& M)
 	cols = M.cols;
 	m = new double[rows * cols];
 	for(int i = 0; i < rows * cols; i++)
-		m[i] = M.m[i];
+		memcpy(&m[i], &M.m[i], sizeof(m[i]));
 }
 Matrix::~Matrix()
 {
@@ -35,31 +29,16 @@ Matrix::~Matrix()
 	rows = 0;
 	cols = 0;
 }
-Matrix& Matrix::Fill()
+const Matrix Matrix::operator= (const Matrix& M) 
 {
-	cout << "Enter elements of matrix" << endl;
-	for (int i = 0; i < rows * cols; i++)
-		cin >> m[i];
-	return *this;
-}
-void Matrix::Out()
-{
-	cout << "Matrix:" << endl;
-	for (int i = 0; i < rows * cols; i++)
-		{
-			cout << m[i] << "  ";
-			if ((i + 1)  % cols == 0 )
-				cout << endl;
-		}
-}
-Matrix Matrix::operator= (const Matrix& M) 
-{
+if (*this == M)
+		return *this;
 	delete[] m;
 	rows = M.rows;
 	cols = M.cols;
 	m = new double[rows * cols];
 	for(int i = 0; i < rows * cols; i++)
-		m[i] = M.m[i];
+		memcpy(&m[i], &M.m[i], sizeof(m[i]));
 	return *this;
 }
 Matrix Matrix::operator+ (const Matrix& M) const
@@ -93,26 +72,32 @@ Matrix Matrix::operator* (const Matrix& M) const
 	Matrix res(rows, M. cols);
 	for(int i = 0; i < rows; i++)
 		for(int j = 0; j < cols; j++)
+        {
+            res.m[i * M.cols + j] = 0.0;
 			for(int k = 0; k < rows; k++)
 				res.m[i * M.cols + j] += M.m[i * cols + k] * M.m[k * M.cols + j];
+        }
 }
 Matrix Matrix::operator+ (double a) const
 {
+	Matrix res(*this);
 	for (int i = 0; i < rows * cols; i++)
-		m[i] += a;
-	return *this;
+		res.m[i] += a;
+	return res;
 }
 Matrix Matrix::operator- (double a) const
 {
+    Matrix res(*this);
 	for (int i = 0; i < rows * cols; i++)
 		m[i] -= a;
-	return *this;
+	return res;
 }
 Matrix Matrix::operator* (double a) const
 {
+    Matrix res(*this);
 	for (int i = 0; i < rows * cols; i++)
 		m[i] *= a;
-	return *this;
+	return res;
 }
 double* Matrix::operator[] (int ind) const
 {
@@ -129,4 +114,31 @@ bool Matrix:: operator== (const Matrix& M) const
             return false;
     }
     return true;
+}
+ istream& operator>>(istream& input, Matrix& M)
+{
+    for (int i = 0; i < (M.rows * M.cols); i++)
+        input >> M.m[i];
+    return input;
+}
+ostream& operator<<(ostream &output, const Matrix& M)
+{
+    if ((M.rows * M.cols) == 0)
+    {
+        cout << "Empty matrix.";
+        return output;
+    }
+
+    for (int i = 0; i < (M.rows * M.cols); i++)
+    {
+        if (i % M.cols == 0)
+            output << "| ";
+
+        output << M.m[i] << " ";
+
+        if ((i + 1) % M.cols == 0)
+            output << "|" << endl;
+    }
+
+    return output;
 }
