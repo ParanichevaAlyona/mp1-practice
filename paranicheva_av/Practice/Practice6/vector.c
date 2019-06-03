@@ -66,10 +66,8 @@ double Angle(Vector *v, Vector *vv)
 	u = u / P * 180; 
 	return u;
 }
- void Delete (Vector *v, Vector *vv)
+ void Delete (Vector *а)
 {
-	free(v->a);
-	v->n = 0; 
-	free(vv->a); 
-	vv->n = 0; 
+	free(а->a);
+	а->n = 0;  
 }
