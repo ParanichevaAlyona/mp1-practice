@@ -3,24 +3,16 @@
 
 class Date
 {
-private:
-	int d, m, y;
 public:
+    int d, m, y;
+
 	Date();
 	Date(int _d, int _m, int _y);
 	~Date();
 
-	int Setd(int _d, int _m, int _y);
-	int Setm(int _m);
-	int Sety(int _y);
-	bool Leapy(int _y);
-	int Getd();
-	int Getm();
-	int Gety();
-	
 	void Print();
-	Date& operator=(const Date date);
-	bool operator==(const Date& tmp);	
+	const Date& operator=(const Date date);
+	bool operator==(const Date& tmp) const;	
 };
 
 #endif
