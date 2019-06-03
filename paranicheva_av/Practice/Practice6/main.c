@@ -50,7 +50,8 @@ void main ()
 				printf("Angle is %lf", u);
 				break;
 			case 6:
-				Delete(v, vv);
+				Delete(v);
+				Delete(vv);
 				break;
 		}
 	}
