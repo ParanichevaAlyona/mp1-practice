@@ -11,10 +11,10 @@ void main()
 	Todolist List;
 	try
 	{
-    std::string path;
-    cout << "Enter the path to the folder" << endl;
-    cin >> path; //C:/Temp/Text.txt"
-	List.Read(path);
+    		std::string path;
+    		cout << "Enter the path to the folder" << endl;
+    		cin >> path; //C:/Temp/Text.txt"
+		List.Read(path);
 	}
 	catch (const char* s)
 	{
