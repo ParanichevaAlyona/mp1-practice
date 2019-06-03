@@ -2,11 +2,6 @@
 #include "Head.h"
 using namespace std;
 
-Vector::Vector()
-{
-	n = 0;
-	x = NULL;
-}
 Vector::Vector(int nn)
 {
 	n = nn;
@@ -17,26 +12,12 @@ Vector::Vector(const Vector& z)
 	n = z.n;
 	x = new double[z.n];
 	for(int i = 0; i < z.n; i++)
-		x[i] = z.x[i];
+		memcpy(&x[i], &z.x[i], sizeof(x[i]));
 }
 Vector::~Vector()
 {
 	delete[]x;
 	n = 0;
-}
-Vector& Vector:: Fill()
-{
-	cout << "Enter vector coordinates" << endl;
-	for (int i = 0; i < n; i++)
-		cin >> x[i];
-	return (*this);
-}
-void Vector:: Out()
-{
-	cout << "Vector coordinates is" << endl;
-	for (int i = 0; i < n; i++)
-		cout << x[i];
-	cout << endl;
 }
 Vector Vector::operator+ (const Vector& z) const
 {
@@ -86,11 +67,11 @@ Vector Vector::operator* (double a) const
 		res.x[i] *= a;
 	return res;
 }
-Vector& Vector::operator= (const Vector& z) 
+const Vector& Vector::operator= (const Vector& z) 
 {
 	if (*this == z)
 	{
-		return*this; 
+		return *this; 
 	}
 	delete[] x;
 	n = z.n;
@@ -99,13 +80,19 @@ Vector& Vector::operator= (const Vector& z)
 		x[i] = z.x[i];
 	return *this;
 }
-double* Vector::operator[] (int ind) const
+const double& Vector::operator[] (int ind) const
 {
 	if ((ind < 0) || (ind >= n))
 		throw "Error";
-	return &(x[ind]);
+	return x[ind];
 }
-double Vector::Length()
+double& Vector::operator[] (int ind)
+{
+	if ((ind < 0) || (ind >= n))
+		throw "Error";
+	return x[ind];
+}
+double Vector::Length() const
 {
 	double S = 0, res;
 	for (int i = 0; i < n; i++)
@@ -147,7 +134,7 @@ Vector& Vector::operator*= (double a)
 		x[i] *= a;
 	return *this;
 }
-void  *Vector::operator new(size_t size)
+void  *Vector::operator new[](size_t size)
 {
 	void* p = new Vector[size];
 	cout << "Allocated " << size << " bytes" << endl;
@@ -157,7 +144,7 @@ void Vector::operator delete(void *x)
 {
 	delete[]x;
 }
-bool Vector::operator==(const Vector& z)
+bool Vector::operator==(const Vector& z) const
 {
 	if (n != z.n) return false;
 	int f = 0;
@@ -167,4 +154,30 @@ bool Vector::operator==(const Vector& z)
 	}
 	if (f == 1) return false;
 	return true;
+}
+istream& operator>> (istream& input, Vector& z)
+{
+    for (int i = 0; i < z.n; i++)
+        input >> z.x[i];
+
+    return input;
+}
+ostream& operator<< (ostream &output, const Vector& z)
+{
+    if (z.n == 0)
+    {
+        output << "Empty";
+        return output;
+    }
+
+    output << "(";
+
+    for (int i = 0; i < z.n; i++)
+    {
+        if (i != z.n - 1)
+            output << z[i] << ", ";
+        else
+            output << z[i] << ")";
+    }
+    return output;
 }
