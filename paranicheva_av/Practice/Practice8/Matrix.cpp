@@ -31,7 +31,7 @@ Matrix::~Matrix()
 }
 const Matrix Matrix::operator= (const Matrix& M) 
 {
-if (*this == M)
+	if (*this == M)
 		return *this;
 	delete[] m;
 	rows = M.rows;
@@ -99,11 +99,11 @@ Matrix Matrix::operator* (double a) const
 		m[i] *= a;
 	return res;
 }
-double* Matrix::operator[] (int ind) const
+const double*& Matrix::operator[] (int ind) const
 {
 	if ((ind < 0) || (ind >= rows * cols))
 		throw "Error";
-	return &(m[(cols * ind)]);
+	return m + cols * ind;
 }
 bool Matrix:: operator== (const Matrix& M) const
 {
@@ -128,17 +128,13 @@ ostream& operator<<(ostream &output, const Matrix& M)
         cout << "Empty matrix.";
         return output;
     }
-
     for (int i = 0; i < (M.rows * M.cols); i++)
     {
         if (i % M.cols == 0)
             output << "| ";
-
         output << M.m[i] << " ";
-
         if ((i + 1) % M.cols == 0)
             output << "|" << endl;
     }
-
     return output;
 }
