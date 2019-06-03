@@ -21,5 +21,5 @@ public:
 	bool operator== (const Matrix& m) const;
 
 	friend istream& operator>> (istream& input, Matrix& M); 
-    friend ostream& operator<< (ostream& output, const Matrix& M); 
+    	friend ostream& operator<< (ostream& output, const Matrix& M); 
 };
