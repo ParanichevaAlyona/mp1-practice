@@ -30,7 +30,7 @@ public:
 	void operator delete(void *v);
 	bool operator==(const Vector& z) const;
 	friend istream& operator>> (istream& input, Vector& z);
-    friend ostream& operator<< (ostream& output, const Vector& z); 
+    	friend ostream& operator<< (ostream& output, const Vector& z); 
 };
 
 #endif
