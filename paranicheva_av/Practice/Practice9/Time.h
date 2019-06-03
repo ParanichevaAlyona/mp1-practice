@@ -3,18 +3,15 @@
 
 class Time
 {
-private:
-	int min, h;
 public:
+    	int min, h;
 	Time();
 	Time(int _min, int _h);
+   	Time(const Time& t);
 	~Time();
-	int Setmin(int _min);
-	int Seth(int _h);
-	int Getmin();
-	int Geth();
-	void Print();
-	Time& operator=(const Time time);
-};
 
+	void Print();
+	const Time& operator=(const Time time);
+   	bool operator == (const Time& t) const;
+};
 #endif
