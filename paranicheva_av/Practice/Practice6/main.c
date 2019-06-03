@@ -1,13 +1,12 @@
-#pragma once
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#include <time.h>
 #include "Header.h"
 
 void main ()
 {
 	int nn, vybor;
+	double len1, len2, u;
 	Vector *v, *vv, *s, *ss;
 	printf("Vvedi dlinu vectorov\n");
 	scanf("%d", &nn);
@@ -15,10 +14,11 @@ void main ()
 	printf("Vector v\n");
 	v = Add(nn);
 	Fill(v);
+	Print(v);
 	printf("Vector vv\n");
 	vv = Add(nn);
 	Fill(vv);
-	printf ("%d");
+	Print(v);
 	do
 	{
 		printf("\n 1) Slozhit vectory\n 2) Vychest vectory\n 3) Skalyarnoe proizvedenie\n ");
@@ -40,16 +40,21 @@ void main ()
 				Com(v, vv);
 				break;
 			case 4:
-				Length(v, vv);
+				len1 = Length(v);
+				printf("Length v is %lf\n", len1);
+				len2 = Length(vv);
+				printf("Length vv is %lf\n", len2);
 				break;
 			case 5:
-				Angle(v, vv);
+				u = Angle(v, vv);
+				printf("Angle is %lf", u);
 				break;
 			case 6:
 				Delete(v, vv);
 				break;
 		}
-	}while (vybor != 7);
+	}
+	while (vybor != 7);
 
 	free(v);
 	free(vv);
