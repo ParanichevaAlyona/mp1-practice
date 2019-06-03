@@ -11,8 +11,7 @@ Vector::Vector(const Vector& z)
 {
 	n = z.n;
 	x = new double[z.n];
-	for(int i = 0; i < z.n; i++)
-		memcpy(&x[i], &z.x[i], sizeof(x[i]));
+	memcpy(&x, &(z.x), sizeof(double) * z.n)
 }
 Vector::~Vector()
 {
