@@ -17,7 +17,7 @@ public:
 	Matrix operator+ (double a)const;
 	Matrix operator- (double a)const;
 	Matrix operator* (double a)const;
-	double* operator[] (int ind) const;
+	const double*& operator[] (int ind) const;
 	bool operator== (const Matrix& m) const;
 
 	friend istream& operator>> (istream& input, Matrix& M); 
