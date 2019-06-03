@@ -16,10 +16,10 @@ void main()
 	cin >> cols2;
 
 	Matrix a(rows1, cols1), b(rows2, cols2), c;
-	a.Fill();
-	a.Out();
-	b.Fill();
-	b.Out();
+	cin >> a;
+	cout << a;
+	cin >> b;
+	cout << b;
 	int k, i;
 	do
 	{
@@ -33,7 +33,7 @@ void main()
 				try
 				{
 					c = a + b;
-					c.Out();
+					cout >> c;
 				}
 				catch(const char* s)
 				{
@@ -44,7 +44,7 @@ void main()
 				try
 				{
 					c = a - b;
-					c.Out();
+					cout >> c;
 				}
 				catch(const char* s)
 				{
@@ -55,7 +55,7 @@ void main()
 				try
 				{
 					c = a * b; 
-					c.Out();
+					cout >> c;
 				}
 				catch(const char* s)
 				{
@@ -64,25 +64,25 @@ void main()
 				break;
 			case 4:
 				c = a;
-				c.Out();
+				cout >> c;
 				break;
 			case 5:
 				cout << "Insert the number " << endl;
 				cin >> num;
 				c = a + num;
-				c.Out();
+				cout >> c;
 				break;
 			case 6:
 				cout << "Insert the number " << endl;
 				cin >> num;
 				c = a - num;
-				c.Out();
+				cout >> c;
 				break;
 			case 7:
 				cout << "Insert the number " << endl;
 				cin >> num;
 				c = a * num;
-				c.Out();
+				cout >> c;
 				break;
 			case 8:
 				try
