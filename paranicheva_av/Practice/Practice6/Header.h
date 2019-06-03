@@ -15,6 +15,6 @@ void Sub(Vector *v, Vector *vv, Vector *ss);
 double Com(Vector *v, Vector *vv);
 double Length(Vector *a);
 double Angle(Vector *v, Vector *vv);
-void Delete(Vector *v, Vector *vv);
+void Delete(Vector *а);
 
 #endif
