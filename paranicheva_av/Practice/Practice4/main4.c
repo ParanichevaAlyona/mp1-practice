@@ -9,10 +9,10 @@ void Scan_product(int *ind, int *kolvo,  int *i, char **scan, int *k)
 	printf("Enter the item code\n");
 	scanf("%s", &shtr);
 	j = 0;
-    while (strncmp(scan[j], shtr, 4) != 0)
-        {
-            j++;
-        }
+	while (strncmp(scan[j], shtr, 4) != 0)
+	{
+		j++;
+	}
 	*ind = j - 1;
 	printf("Enter the quantity of products\n");
 	scanf("%d", k);
@@ -20,8 +20,8 @@ void Scan_product(int *ind, int *kolvo,  int *i, char **scan, int *k)
 void Product_description(char **scan, char **prod, int price[], int discount[], int *ind )
 {
 	int h = *ind + 1;
-	printf("%c%c%c%c   name - %s  ", scan[h][0], scan[h][1], scan[h][2], scan[h][3], prod[*ind]);
-	printf("unit price = %d   discount = %d\n", price[*ind], discount[*ind])
+	printf("%s name - %s  ", scan[h], prod[*ind]);
+	printf("unit price = %d   discount = %d\n", price[*ind], discount[*ind]);
 }
 void Add_item_to_check(int *check, int *ind, int *sch, int *i, int kolvo[], int *k)
 {
@@ -38,7 +38,6 @@ void Add_item_to_check(int *check, int *ind, int *sch, int *i, int kolvo[], int 
 		kprice[j] = price[check[j]] * kolvo[j];
 		printf("price = %d\n", kprice[j]);
 	}
-
 }
  void Calculate_the_total(int kprice[], int price[], int discount[], int kolvo[], int *check, int sch)
 {
@@ -50,7 +49,8 @@ void Add_item_to_check(int *check, int *ind, int *sch, int *i, int kolvo[], int 
 		sumprice += (price[check[j]] * kolvo[j] * (100 - discount[check[j]])) / 100;
 	}
 	alldiscount = allprice - sumprice;
-	printf ("\nFull price of products is %d  \nAmount of all discounts is %d  \nThe total price is %d\n\n", allprice, alldiscount, sumprice);
+	printf ("\nFull price of products is %d  \nAmount of all discounts is %d", allprice, alldiscount);
+	printf ("\nThe total price is %d\n\n",sumprice);
 }
 void main()
 {
@@ -64,12 +64,12 @@ void main()
 	int *kprice;
 
 	for (i = 0; i < 10000; i++)
-    {
-		scan[i] = (char*)malloc(sizeof(char) * 4);
-        scan[i][3] = i % 10 + '0';
-        scan[i][2] = (i / 10) % 10 + '0';
-        scan[i][1] = (i / 100) % 10 + '0';
-        scan[i][0] = (i / 1000) + '0';
+	{
+	scan[i] = (char*)malloc(sizeof(char) * 4);
+    scan[i][3] = i % 10 + '0';
+    scan[i][2] = (i / 10) % 10 + '0';
+    scan[i][1] = (i / 100) % 10 + '0';
+    scan[i][0] = (i / 1000) + '0';
 	}
 
 	kolvo = (int*)malloc(max * sizeof(int));
@@ -85,7 +85,6 @@ void main()
 			{
 			case 1: 
 				Scan_product(&ind, kolvo, &i, scan, &k);
-
 				break;
 			case 2: 
 				Product_description(scan, prod, price, discount, &ind );
