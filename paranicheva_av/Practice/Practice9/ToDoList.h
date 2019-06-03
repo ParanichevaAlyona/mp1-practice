@@ -3,14 +3,15 @@
 
 class Todolist
 {
-public:
-	Task **tasks;
+private:
+    Task **tasks;
 	int count;
+public:
 	Todolist();
 	Todolist(int _count);
 	~Todolist();
 
-	void Read();
+	void Read(std::string &path);
 	void Print();
 };
 
