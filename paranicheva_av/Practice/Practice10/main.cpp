@@ -10,12 +10,12 @@ void main()
 	cout << "Enter array size" << endl;
 	cin >> _size;
 	int n;
-	Container<int, _maxsize> A(_size);
+	Container<int, _maxsize> A(10);
 
 	try
 	{
-		A.Fill();
-		A.Print();
+		cin >> A;
+		cout << A;
 	}
 	catch(const char* s)
 	{
@@ -38,7 +38,7 @@ void main()
 		cout << "Enter a new array element" << endl;
 		cin >> n;
 		A.Add(n);
-		A.Print();
+		cout << A;
 	}
 	catch(const char* s)
 	{
@@ -50,7 +50,7 @@ void main()
 		cout << "Enter the item you want to delete" << endl;
 		cin >> n;
 		A.Delete(n);
-		A.Print();
+		cout << A;
 	}
 	catch(const char* s)
 	{
@@ -68,16 +68,16 @@ void main()
 	{
 		cout << s << endl;
 	}
-	
+	////////////
 	int _s;
 	_s = _size;
 	int nn;
-	Container<int*, _maxsize> B(_s);
+	Container<int*, _maxsize> B(10);
 
 	try
 	{
-		B.Fill();
-		B.Print();
+		cin >> B;
+		cout << B;
 	}
 	catch(const char* s)
 	{
@@ -100,7 +100,7 @@ void main()
 		cout << "Enter a new array element" << endl;
 		cin >> nn;
 		B.Add(nn);
-		B.Print();
+		cout << B;
 	}
 	catch(const char* s)
 	{
@@ -112,7 +112,7 @@ void main()
 		cout << "Enter the item you want to delete" << endl;
 		cin >> nn;
 		B.Delete(nn);
-		B.Print();
+		cout << B;
 	}
 	catch(const char* s)
 	{
