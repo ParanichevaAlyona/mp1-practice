@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "Task.h"
 #include "Date.h"
 #include "Time.h"
@@ -10,7 +11,10 @@ void main()
 	Todolist List;
 	try
 	{
-	List.Read();
+    		std::string path;
+   		cout << "Enter the path to the folder" << endl;
+    		cin >> path; //C:/Temp/Text.txt"
+	List.Read(path);
 	}
 	catch (const char* s)
 	{
