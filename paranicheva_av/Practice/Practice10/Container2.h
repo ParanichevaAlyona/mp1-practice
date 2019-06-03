@@ -1,6 +1,9 @@
 #ifndef CONTAINERA_H
 #define CONTAINERA_H
 
+#include <iostream>
+using namespace std;
+
 template <typename T, int maxsize> 
 class Container<T*, maxsize>
 {
@@ -8,30 +11,45 @@ private:
 	T** m;
 	int s; 
 public:
-	Container();
-	Container(int _s);
+    Container(int _s);
 	Container(const Container& c);
 	~Container();
 
 	bool IsFull() const;
 	bool IsEmpty() const;
 
-	void Fill();
-	void Print();
 	int Find(T n) const;
 	void Add(T n);
 	void Delete(T n);
 	T& operator[](int i);
 	const T& operator[](int i) const;
 	void Resize(int n);
-};
 
-template <typename T, int maxsize>
-Container <T*, maxsize>::Container()
-{
-	s = 0;
-	m = new T*[MAX];
-}
+	friend istream& operator>>(istream& fill, Container& tmp)
+    {
+        for (int i = 0; i < tmp.s; i++)
+            fill >> tmp[i];
+        return fill;
+    };
+
+    friend ostream& operator<<(ostream& print, const Container& tmp)
+	{
+        if (tmp.s == 0)
+        {
+            print << "The container is empty";
+            return print;
+        }
+        for (int i = 0; i < tmp.s; i++)
+        {
+            if (i != (tmp.s - 1))
+                print << tmp[i] << ", ";
+            else
+                print << tmp[i];
+            cout << endl;
+        }
+        return print;
+    };
+};
 
 template <typename T, int maxsize>
 Container <T*, maxsize>::Container(int _s)
@@ -48,7 +66,7 @@ template <typename T, int maxsize>
 Container <T*, maxsize>::Container(const Container &c)
 {
 	s = c.s;
-	m = new T*[MAX];
+	m = new T*[maxsize];
 	for (int i = 0; i < s; i++)
 	{
 		m = new T;
@@ -82,31 +100,11 @@ bool Container <T*, maxsize>::IsEmpty() const
 }
 
 template <typename T, int maxsize>
-void Container <T*, maxsize>::Fill()
-{
-	cout << "Enter array elements" << endl;
-	if(IsEmpty()) 
-		throw "Array is empty";
-	for (int i = 0; i < s; i++)
-    {
-        cin >> *m[i];
-    }
-}
-
-template <typename T, int maxsize>
-void Container <T*, maxsize>::Print() 
-{
-	for (int i = 0; i < s; i++)
-        cout << *m[i] << " ";
-    cout << endl;
-}
-
-template <typename T, int maxsize>
 int Container <T*, maxsize>::Find(T n) const
 {
 	for (int i = 0; i < s; i++)
         if (*m[i] == n)
-            return i;
+            return -1;
     throw "Item not found";
 }
 
