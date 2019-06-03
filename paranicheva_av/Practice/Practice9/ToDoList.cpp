@@ -28,16 +28,15 @@ Todolist::~Todolist()
     count = 0;
 }
 
-void Todolist::Read()
+void Todolist::Read(std::string &path)
 {
 	fstream file;
-	char *path = "C:/Temp/Text.txt";
 	file.open(path);
 	if (!file.is_open())
 		throw "File not found";
 
 	string c;
-	getline(file, c);// считывание кол-ва задач всего
+	getline(file, c);// СЃС‡РёС‚С‹РІР°РЅРёРµ РєРѕР»-РІР° Р·Р°РґР°С‡ РІСЃРµРіРѕ
 	count = atoi(c.c_str());
 
 	tasks = new Task*[count]; 
