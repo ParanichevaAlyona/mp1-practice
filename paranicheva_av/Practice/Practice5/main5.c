@@ -73,6 +73,7 @@ void Choose_sort(ULONGLONG *tmpSize, int *filesIndex, int kolvo)
         filesIndex[i] = tmp;
     }
 }
+
 void Insert_sort(ULONGLONG *tmpSize, int *filesIndex, int kolvo)
 {
     int i, j, tmp;
@@ -88,6 +89,7 @@ void Insert_sort(ULONGLONG *tmpSize, int *filesIndex, int kolvo)
         }
     }
 }
+
 void Bubble_sort(ULONGLONG *tmpSize, int *filesIndex, int kolvo)
 {
     int i, j, tmp;
@@ -104,6 +106,7 @@ void Bubble_sort(ULONGLONG *tmpSize, int *filesIndex, int kolvo)
         }
     }
 }
+
 void Counting_sort(ULONGLONG *tmpSize, int *filesIndex, int kolvo)
 {
     int *count = (int*)malloc(MAX_COUNT_OF_FILES * sizeof(int));
@@ -134,6 +137,7 @@ void Counting_sort(ULONGLONG *tmpSize, int *filesIndex, int kolvo)
     }
     free(count);
 }
+
 void Merge(int *filesIndex, ULONGLONG *tmpSize, int ind1, int mid, int ind2) 
 {
     int i, j = mid + 1, h, tmp;
@@ -159,6 +163,7 @@ void Merge_sort(ULONGLONG *tmpSize, int *filesIndex, int ind1, int ind2)
     Merge_sort(filesIndex, tmpSize, mid + 1, ind2);
     Merge(filesIndex, tmpSize, ind1, mid, ind2);
 }
+
 void Quicksplit(int *filesIndex, ULONGLONG *tmpSize, int *i, int *j, ULONGLONG opora)
 {
     int tmp;
@@ -177,6 +182,7 @@ void Quicksplit(int *filesIndex, ULONGLONG *tmpSize, int *i, int *j, ULONGLONG o
         } 
     } while ((*i) < (*j));
 }
+
 void Quick_sort(ULONGLONG *tmpSize, int *filesIndex, int ind1, int ind2)
 {
     int mid = (ind1 + ind2) / 2;
@@ -187,6 +193,7 @@ void Quick_sort(ULONGLONG *tmpSize, int *filesIndex, int ind1, int ind2)
     if (i < ind2)
         Quick_sort(filesIndex, tmpSize, i, ind2); 
 }
+
 int main()
 {
     wchar_t  **fileName;
@@ -194,13 +201,12 @@ int main()
     ULONGLONG *filesSize, *tmpSizes;
     clock_t start, end;
     int *filesIndex;
-    unsigned long inpstr;
     int  vybor, i = 0, kolvo = -1;
     float sorttime = 0.0f;
     printf("Input path\n");
 
     filesSize = (ULONGLONG*)malloc(MAX_LEN * sizeof(ULONGLONG)); 
-	fileName = (wchar_t**)malloc((MAX_LEN)* sizeof(wchar_t*));
+    fileName = (wchar_t**)malloc((MAX_LEN)* sizeof(wchar_t*));
 
     while (kolvo == -1)
     {
@@ -215,45 +221,72 @@ int main()
     tmpSizes = (ULONGLONG*)malloc(kolvo * sizeof(ULONGLONG));           
     for (i = 0; i < kolvo; i++)                                         
         tmpSizes[i] = filesSize[i]; 
-	free(filesSize);
-do {
-    printf("---Select sort--- \n1. Choose sort \n2. Insert sort \n3. Bubble sort \n4. Counting sort \n5. Merge sort \n6. Quick sort\n");
-    printf("To exit the program, click escape ");
-    scanf("%d", &vybor);
+    free(filesSize);
+    do {
+	printf("---Select sort--- \n1. Choose sort \n2. Insert sort \n3. Bubble sort \n4. Counting sort \n5. Merge sort \n6. Quick sort\n");
+	printf("Do not sort press 7\n");
+	scanf("%d", &vybor);
 	for (i = 0; i < kolvo; i++)
 		filesIndex[i] = i;
-    start = clock();
-
     switch (vybor)
-    {
-    case 1:
-        Choose_sort(tmpSizes, filesIndex, kolvo);
-        break;
-    case 2:
-        Insert_sort(tmpSizes, filesIndex, kolvo);
-        break;
-    case 3:
-        Bubble_sort(tmpSizes, filesIndex, kolvo);
-        break;
-    case 4:
-        Counting_sort(tmpSizes, filesIndex, kolvo);
-        break;
-    case 5:
-        Merge_sort(tmpSizes, filesIndex, 0, (kolvo - 1));
-        break;
-    case 6:
-        Quick_sort(tmpSizes, filesIndex, 0, (kolvo - 1));
-        break;
-	}
-        end = clock();
-
-        sorttime = (float)(end - start) / CLOCKS_PER_SEC;
-        printf("Time of sorting: %.4lf s\n", sorttime);
+	{
+	case 1:
+		start = clock();
+		Choose_sort(tmpSizes, filesIndex, kolvo);
+		end = clock();
+		sorttime = (float)(end - start) / CLOCKS_PER_SEC;
+		printf("Time of sorting: %.6lf s\n", sorttime);
 		if (kolvo > 0)
-        Output(fileName,  tmpSizes, filesIndex,  kolvo);
-
-    } while (vybor < 1 || vybor > 6); 
-    
+			Output(fileName,  tmpSizes, filesIndex,  kolvo);
+		break;
+	case 2:
+		start = clock();
+		Insert_sort(tmpSizes, filesIndex, kolvo);
+		end = clock();
+		sorttime = (float)(end - start) / CLOCKS_PER_SEC;
+		printf("Time of sorting: %.6lf s\n", sorttime);
+		if (kolvo > 0)
+			Output(fileName,  tmpSizes, filesIndex,  kolvo);
+		break;
+	case 3:
+		start = clock();
+		Bubble_sort(tmpSizes, filesIndex, kolvo);
+		end = clock();
+		sorttime = (float)(end - start) / CLOCKS_PER_SEC;
+		printf("Time of sorting: %.6lf s\n", sorttime);
+		if (kolvo > 0)
+			Output(fileName,  tmpSizes, filesIndex,  kolvo);
+		break;
+	case 4:
+		start = clock();
+		Counting_sort(tmpSizes, filesIndex, kolvo);
+		end = clock();
+		sorttime = (float)(end - start) / CLOCKS_PER_SEC;
+		printf("Time of sorting: %.6lf s\n", sorttime);
+		if (kolvo > 0)
+			Output(fileName,  tmpSizes, filesIndex,  kolvo);
+		break;
+	case 5:
+		start = clock();
+		Merge_sort(tmpSizes, filesIndex, 0, (kolvo - 1));
+		end = clock();
+		sorttime = (float)(end - start) / CLOCKS_PER_SEC;
+		printf("Time of sorting: %.6lf s\n", sorttime);
+		if (kolvo > 0)
+			Output(fileName,  tmpSizes, filesIndex,  kolvo);
+		break;
+	case 6:
+		start = clock();
+		Quick_sort(tmpSizes, filesIndex, 0, (kolvo - 1));
+		end = clock();
+		sorttime = (float)(end - start) / CLOCKS_PER_SEC;
+		printf("Time of sorting: %.6lf s\n", sorttime);
+		if (kolvo > 0)
+			Output(fileName,  tmpSizes, filesIndex,  kolvo);
+		break;
+	}
+    } while (vybor != 7); 
+			
     free(tmpSizes);
-	free(filesIndex);
+    free(filesIndex);
 }
